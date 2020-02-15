@@ -18,14 +18,21 @@ function search() {
 	setMarker(a);
 }
 
-function getPath(a, b) {
+function getPath() {
+	var from = document.getElementById("roomNumFrom").value;
+	var to = document.getElementById("roomNumTo").value;
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			this.responseText;
+			try {
+				path.stroke({color: "#ffffff00"});
+				path.clear();
+			} catch (Exception) {}
+			path = draw.polyline(this.responseText).fill('none');
+			path.stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
 		}
 	};	
-	xhttp.open("GET", "php/findPath.php?start=" + a + "&end=" + b, true);
+	xhttp.open("GET", "php/findPath.php?start=" + from + "&end=" + to, true);
 	xhttp.send();
 }
