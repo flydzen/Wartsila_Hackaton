@@ -11,15 +11,17 @@
   <body>
     <svg id='drawing'></svg>
     <script type="text/javascript">    
+        var marker;
 	    $.ajax({
 	        url: 'img/floor1.svg',
 	        success: function(data) {
-	           	var img = SVG('#drawing').size(500, 500);
+	        	var width = window.innerWidth;
+	        	var height = window.innerHeight;
+	           	var img = SVG('#drawing').size(width, height);
 	            img.svg(new XMLSerializer().serializeToString(data.documentElement))
 	            var draw = SVG("#floor1")
-	            draw.circle(20).move(350, 300)
-	            //var draw = SVG('#drawing')
-	            //var circle = draw.circle(20);
+	            marker = draw.circle(20)
+	            setMarker(108);
 	        }
 	    });
         </script>
