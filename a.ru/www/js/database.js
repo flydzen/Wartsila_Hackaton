@@ -41,7 +41,21 @@ function alert_coords(evt) {
     pt.x = evt.clientX;
     pt.y = evt.clientY;
 
-    // The cursor point, translated into svg coordinates
     var cursorpt =  pt.matrixTransform(svg.getScreenCTM().inverse());
     console.log("(" + cursorpt.x + ", " + cursorpt.y + ")");
+}
+
+function getNearRoom(x, y, floor) {
+	var from = document.getElementById("roomNumFrom").value;
+	var to = document.getElementById("roomNumTo").value;
+	var xhttp;
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			path = draw.polyline(this.responseText).fill('none');
+			path.stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
+		}
+	};	
+	xhttp.open("GET", "php/findPath.php?start=" + from + "&end=" + to, true);
+	xhttp.send();
 }
