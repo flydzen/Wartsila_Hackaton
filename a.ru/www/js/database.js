@@ -46,16 +46,14 @@ function alert_coords(evt) {
 }
 
 function getNearRoom(x, y, floor) {
-	var from = document.getElementById("roomNumFrom").value;
-	var to = document.getElementById("roomNumTo").value;
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			path = draw.polyline(this.responseText).fill('none');
-			path.stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
+			var data = this.responseText.split(' ');
+			setMarker(data[2]);
 		}
 	};	
-	xhttp.open("GET", "php/findPath.php?start=" + from + "&end=" + to, true);
+	xhttp.open("GET", "php/nearRoom.php?x=" + x + "&y=" + y + "&floor=" + floor, true);
 	xhttp.send();
 }
