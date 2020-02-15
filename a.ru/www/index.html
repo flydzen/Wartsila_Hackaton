@@ -15,7 +15,12 @@
   </head>
   <body>
     <svg id='drawing'></svg>
+    
     <script type="text/javascript">
+    var drawingSVG = document.getElementById('drawing');
+    drawingSVG.addEventListener('click', event => {
+        alert(event.x + ", " + event.y);
+    });
     var marker;
     var draw;
     var path;

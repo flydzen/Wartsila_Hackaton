@@ -36,3 +36,12 @@ function getPath() {
 	xhttp.open("GET", "php/findPath.php?start=" + from + "&end=" + to, true);
 	xhttp.send();
 }
+
+function alert_coords(evt) {
+    pt.x = evt.clientX;
+    pt.y = evt.clientY;
+
+    // The cursor point, translated into svg coordinates
+    var cursorpt =  pt.matrixTransform(svg.getScreenCTM().inverse());
+    console.log("(" + cursorpt.x + ", " + cursorpt.y + ")");
+}
