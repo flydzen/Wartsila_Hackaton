@@ -1,7 +1,27 @@
-<head>                                                               
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/database.js"></script>
-<script>
-	getCoords(108);
-</script>
-</head>
+<!doctype html>
+<html lang="en">
+  <head> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/database.js"></script>
+    <script type="text/javascript" src="js/svg.js"></script>
+    <title>Oblepiha</title>
+  </head>
+  <body>
+    <svg id='drawing'></svg>
+    <script type="text/javascript">    
+	    $.ajax({
+	        url: 'img/floor1.svg',
+	        success: function(data) {
+	           	var img = SVG('#drawing').size(500, 500);
+	            img.svg(new XMLSerializer().serializeToString(data.documentElement))
+	            var draw = SVG("#floor1")
+	            draw.circle(20).move(350, 300)
+	            //var draw = SVG('#drawing')
+	            //var circle = draw.circle(20);
+	        }
+	    });
+        </script>
+  </body>
+</html>
