@@ -95,18 +95,18 @@
     <div class="main">
       <div class="search">
         <form class="form">
-          <label for="wayToRoom">Find place</label>
+          <label for="wayToRoom">Найти место</label>
           <div class="container">
             <div class="row-fluid">
               <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="search()" id="roomNum">
                 <? include('php/getNames.php') ?>
               </select>
             </div>
-            <button type="button" class="btn btn-success container" onclick="addEvent()">Добавить в список встреч</button>
+            <button type="button" class="btn btn-success container" style="width: 100% !important" onclick="addEvent()">Добавить в список встреч</button>
           </div>
         </form>
         <form class="form formPath">
-          <label for="wayToRoom">Way to room</label>
+          <label for="wayToRoom" id="wayLabel">Путь к...</label>
           <div class="container">
             <div class="row-fluid">
               <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPath()" id="roomNumFrom">
@@ -121,23 +121,23 @@
               </select>
             </div>
           </div>            <div class="container">
-            <div class="row-fluid">
+            <div class="row-fluid" style="width:102%">
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary active">
-                  <input type="radio" name="typeMove" id="Any" autocomplete="off" checked> Any
+                <label class="btn btn-secondary active" style="width:30%">
+                  <input type="radio" name="typeMove" id="Any" autocomplete="off" checked> Любое
                 </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="typeMove" id="Elevator" autocomplete="off"> Elevators
+                <label class="btn btn-secondary" style="width:30%">
+                  <input type="radio" name="typeMove" id="Elevator" autocomplete="off"> Лифты
                 </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="typeMove" id="Stairs" autocomplete="off"> Stairs  
+                <label class="btn btn-secondary" style="width:40%">
+                  <input type="radio" name="typeMove" id="Stairs" autocomplete="off"> Лестницы 
                 </label>
               </div>
             </div>
           </div>
         </form>
-        <form class="form">
-          <label for="wayToRoom">Search people</label>
+        <form class="form" style="margin:20px 0 !important">
+          <label for="wayToRoom">Найти человека</label>
             <div class="container">
               <div class="row-fluid">
                 <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPeople()" id="peopleName">
@@ -161,7 +161,7 @@
         <button type="button" class="btn btn-danger" onClick="deleteEvent()">Удалить встречу</button>
       </div>
       <div class="spinner-border text-primary" id="spinner" role="status">
-          <span class="sr-only">Loading...</span>
+          <span class="sr-only">загрузка...</span>
       </div>
       <div class="floatingButtons">
           <div><button id="btn3" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(3)">4</button> </div>

@@ -12,7 +12,7 @@
 	while ($row = $result->fetch_assoc()) {
 	    $tx = $row['x'];
 	    $ty = $row['y'];
-	    if (($x - $tx) * ($x - $tx) + ($y - $ty) * ($y - $ty) < $dist && $_GET['floor'] == $row['floor'] && $row['sluz'] == 0) {
+	    if (($x - $tx) * ($x - $tx) + ($y - $ty) * ($y - $ty) < $dist && $_GET['floor'] == $row['floor'] && $row['sluz'] == 1) {
 	    	$dist = ($x - $tx) * ($x - $tx) + ($y - $ty) * ($y - $ty);
 	    	$ansX = $tx;
 	    	$ansY = $ty;

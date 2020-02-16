@@ -3,6 +3,6 @@
 	$mysqli = new mysqli("localhost", "root", "", "nav");
 	$result = $mysqli->query("SELECT `name`, `lastName` FROM obl_peoples WHERE room=".$_GET['room']);
     while ($row = $result->fetch_assoc()) {
-        echo '<li class="list-group-item">'.$row['name']." ".$row['lastName']."</li>";
+        echo '<li>'.$row['name']." ".$row['lastName']."</li>";
     }
 ?>

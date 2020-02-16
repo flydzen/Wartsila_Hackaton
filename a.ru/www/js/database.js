@@ -41,6 +41,7 @@ function baseGetPath(from, to){
 		if (this.readyState == 4 && this.status == 200) {
 			var lr = this.responseText.split("$");
 			var right = lr[1];
+			document.getElementById("wayLabel").innerText="Путь займет " + Math.round(right/50) + " гиперсекунд";
 			var temp = lr[0].split(",@");
 			var lvls = temp[0].split(",");
 			var ways = temp[1].split("|");
@@ -56,8 +57,8 @@ function baseGetPath(from, to){
 			for (var i = 0; i < lvls.length; i++) {
 				printPath(ways[i], lvls[i]);
 			}
-			startCircle = draw[lvls[0]].circle(30).move(+xyStart[0] - 15, +xyStart[1] - 15);
-			endCircle = draw[lvls[lvls.length-1]].circle(30).move(+xyEnd[0] - 15, +xyEnd[1] - 15);
+			startCircle = draw[lvls[0]].circle(24).move(+xyStart[0] - 12, +xyStart[1] - 12);
+			endCircle = draw[lvls[lvls.length-1]].circle(24).move(+xyEnd[0] - 12, +xyEnd[1] - 12);
 		}
 	};
 	xhttp.open("GET", "php/findPath.php?start=" + encodeURIComponent(from) + "&end=" + encodeURIComponent(to) + "&type=" + choosen, true);
