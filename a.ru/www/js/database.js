@@ -110,6 +110,12 @@ function addEvent(name) {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			setMarker(this.responseText);
+			$.ajax({
+		    url: 'printEvents.php',
+		    success: function(data){
+		      $('#example').html(data);
+		    }
+		  });
 		}
 	};
 	xhttp.open("GET", "php/addToList.php?name=" + encodeURIComponent(name), true);
