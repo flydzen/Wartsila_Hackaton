@@ -141,7 +141,7 @@
             <div class="container">
               <div class="row-fluid">
                 <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPeople()" id="peopleName">
-                  <? include('php/getPeoples.php') ?>
+                  <? include('php/getPeoples.php')?>
                 </select>
               </div>
             </div>
