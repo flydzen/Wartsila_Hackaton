@@ -71,6 +71,7 @@
 			}
 		}
 	}
+	$dist = $d[$e];
 	$ansX = array();
 	$ansY = array();
 	$ansZ = array();
@@ -100,4 +101,5 @@
 			echo " ";
 		}
 	}
+	echo "$".round($dist);
 ?>
