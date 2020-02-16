@@ -3,6 +3,6 @@
 	$mysqli = new mysqli("localhost", "root", "", "nav");
 	$result = $mysqli->query("SELECT name, lastName FROM obl_peoples");
     while ($row = $result->fetch_assoc()) {
-        echo '<option value="'.$row['name'].' '.$row['lastName'].'>'.$row['name'].' '.$row['lastName'].'.</option>';
+        echo '<option value="'.$row['name'].' '.$row['lastName'].'">'.$row['name'].' '.$row['lastName'].'</option>';
     }
 ?>
