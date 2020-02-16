@@ -4,6 +4,14 @@ function setMarker(name) {
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById('numberRoom').innerText = "Room: " + name;
+			if (floor % 2 == 0) {
+				simple.style.display = "block"
+				antresol.style.display = "none"
+			} else {
+				simple.style.display = "none"
+				antresol.style.display = "block"
+			}
 			var arr = this.responseText.split(' ');
 			setFloorByRoom(name, +arr[0], +arr[1]-10);
 		}
@@ -50,9 +58,9 @@ function getPath() {
 				printPath(ways[i], lvls[i]);
 			}
 			startCircle = draw[lvls[0]].circle(30).move(+xyStart[0] - 15, +xyStart[1] - 15);
-			endCircle = draw[lvls[lvls.length-1]].circle(30).move(+xyEnd[0] - 15, +xyEnd[1] - 15);	
+			endCircle = draw[lvls[lvls.length-1]].circle(30).move(+xyEnd[0] - 15, +xyEnd[1] - 15);
 		}
-	};	
+	};
 	xhttp.open("GET", "php/findPath.php?start=" + encodeURIComponent(from) + "&end=" + encodeURIComponent(to) + "&type=" + choosen, true);
 	xhttp.send();
 }
@@ -91,7 +99,7 @@ function getPeople() {
 		if (this.readyState == 4 && this.status == 200) {
 			setMarker(this.responseText);
 		}
-	};	
+	};
 	xhttp.open("GET", "php/getRoomByPeople.php?name=" + encodeURIComponent(name) + "&lastName=" + encodeURIComponent(lastName), true);
 	xhttp.send();
 }
@@ -108,15 +116,8 @@ function setFloorByRoom(name, x, y) {
 		if (this.readyState == 4 && this.status == 200) {
 			setFloor(this.responseText);
 			marker[floor].move(x, y);
-			if (floor % 2 == 0) {
-				simple.style.display = "block"
-				antresol.style.display = "none"
-			} else {
-				simple.style.display = "none"
-				antresol.style.display = "block"
-			}
 		}
-	};	
+	};
 	xhttp.open("GET", "php/getFloor.php?name="+name, true);
 	xhttp.send();
 }

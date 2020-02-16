@@ -80,8 +80,8 @@
     }
     </script>
     <div class="room">
+      <label id="numberRoom"></label>
       <svg id="showRoom" style="transform: scale(2.5);">
-        
       </svg>
     </div>
     <div class="main">
