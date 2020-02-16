@@ -76,6 +76,7 @@
 		$lastZ = $ansZ[$i];
 	}
 	echo "@";
+	$lastZ = $ansZ[count($ansZ) - 1];
 	for ($i = count($ansX) - 1; $i >= 0; $i--) {
 		if ($ansZ[$i] != $lastZ) {
 			echo "|";
