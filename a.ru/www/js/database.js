@@ -42,6 +42,7 @@ function getPath() {
 }
 
 function printPath(text, flr) {
+	alert(text + " " + flr);
 	try {
 		path[flr].stroke({color: "#ffffff00"});
 		path[flr].clear();
