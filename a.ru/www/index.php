@@ -63,6 +63,7 @@
           }
       });
     }
+    var lastEvent = "";
     var startCircle;
     var endCircle;
     var svg = [];
@@ -84,6 +85,12 @@
       <label id="numberRoom"></label>
         <svg id="showRoom" style="transform: scale(2.5);">
       </svg>
+      <div>
+        <ul class="list-group overflow-auto">
+          <div id="workers">
+          </div>
+        </ul>
+      </div>
     </div>
     <div class="main">
       <div class="search">
@@ -148,9 +155,10 @@
               <div id="events">
                 <? include("php/printEvents.php") ?>
               </div>
-            </div><button type="button" class="btn btn-danger" >Удалить встречу</button>
+            </div>
           </div>
         </form>
+        <button type="button" class="btn btn-danger" onClick="deleteEvent()">Удалить встречу</button>
       </div>
       <div class="spinner-border text-primary" id="spinner" role="status">
           <span class="sr-only">Loading...</span>
