@@ -86,8 +86,9 @@
         <svg id="showRoom" style="transform: scale(2.5);">
       </svg>
       <div>
-        <ul class="list-group">
-          <? include("php/printWorkers.php?room=106") ?>
+        <ul class="list-group overflow-auto">
+          <div id="workers">
+          </div>
         </ul>
       </div>
     </div>

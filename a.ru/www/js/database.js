@@ -105,15 +105,12 @@ function getNearRoom(x, y) {
 }
 
 function setWorkersList(name) {
-	var xhttp;
-	xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			alert(this.responseText.split);
+	$.ajax({
+		url: "php/printWorkers.php?room=" + encodeURIComponent(name),
+		success: function(data){
+		  $('#workers').html(data);
 		}
-	};
-	xhttp.open("GET", "php/printWorkers.php?room=" + encodeURIComponent(name), true);
-	xhttp.send();
+	  });
 }
 
 function getPeople() {
