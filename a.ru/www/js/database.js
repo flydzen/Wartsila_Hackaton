@@ -23,21 +23,32 @@ function getPath() {
 	document.getElementById("spinner").style.visibility = "visible";
 	var from = document.getElementById("roomNumFrom").value.split(' ').join('_');
 	var to = document.getElementById("roomNumTo").value.split(' ').join('_');
+	
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			try {
-				path[floor].stroke({color: "#ffffff00"});
-				path[floor].clear();
-			} catch (Exception) {}
-			path[floor] = draw[floor].polyline(this.responseText).fill('none');
-			path[floor].stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
-			document.getElementById("spinner").style.visibility = "hidden";
+			var temp = this.responseText.split(",@");
+			alert(temp);
+			var lvls = temp[0].split(",");
+			var ways = temp[1].split("|");
+			for (var i = 0; i < lvls.length; i++) {
+				printPath(ways[i], lvls[i]);
+			}
 		}
 	};	
 	xhttp.open("GET", "php/findPath.php?start=" + encodeURIComponent(from) + "&end=" + encodeURIComponent(to), true);
 	xhttp.send();
+}
+
+function printPath(text, flr) {
+	try {
+		path[flr].stroke({color: "#ffffff00"});
+		path[flr].clear();
+	} catch (Exception) {}
+	path[flr] = draw[flr].polyline(text).fill('none');
+	path[flr].stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
+	document.getElementById("spinner").style.visibility = "hidden";
 }
 
 function getNearRoom(x, y, floor) {
