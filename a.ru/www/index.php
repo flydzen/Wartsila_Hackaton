@@ -29,6 +29,7 @@
     var draw;
     var path;
     var pt;
+    var drawing;
     $.ajax({
         url: 'img/floor1.svg',
         success: function(data) {
@@ -38,7 +39,8 @@
             img.svg(new XMLSerializer().serializeToString(data.documentElement));
             draw = SVG("#floor1"); 
             marker = draw.image('img/marker.svg').size(25,25).move(-10000, -10000);            
-            svg = document.getElementById('drawing');
+            svg = document.getElementById('floor1');
+            drawing = document.getElementById('drawing');
             pt = svg.createSVGPoint();
             document.getElementById('drawing').addEventListener('click', event => {
                 var loc = cursorPoint(event);
@@ -61,24 +63,27 @@
             }
 
             var scale = 1;
-            addOnWheel(svg, function(e) {
+            addOnWheel(drawing, function(e) {
               var delta = e.deltaY || e.detail || e.wheelDelta;
-              if (delta > 0) scale += 0.05;
+              if (delta < 0) scale += 0.05;
               else scale -= 0.05;
-              svg.style.transform = svg.style.WebkitTransform = svg.style.MsTransform = 'scale(' + scale + ')';
+              drawing.style.transform = drawing.style.WebkitTransform = drawing.style.MsTransform = 'scale(' + scale + ')';
               e.preventDefault();
             });
         }
     });
     </script>
     <div class="main">
-      <div class="container">
-        <div class="row-fluid">
-          <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="search()" id="roomNum">
-            <? require('php/getNames.php') ?>
-          </select>
-        </div>
-      </div>
+        <div class="search">
+            <form class="form">
+              <div class="container">
+                <div class="row-fluid">
+                  <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="search()" id="roomNum">
+                    <? require('php/getNames.php') ?>
+                  </select>
+                </div>
+              </div>
+          </form>
 
         <form class="form formPath">
             <label for="wayToRoom">Way to room</label>
@@ -97,7 +102,7 @@
                 </div>
               </div>
           </form>
-
+    </div>
         <div class="spinner-border text-primary" id="spinner" role="status">
             <span class="sr-only">Loading...</span>
         </div>

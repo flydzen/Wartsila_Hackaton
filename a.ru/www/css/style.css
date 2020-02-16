@@ -1,12 +1,13 @@
 #drawing {
     position: absolute;
 }
-.selectpicker {
+.caret {
+    display: none !important;
+}
+.search {
     position: fixed;
-    width: 200px !important;
 }
 .main {
-    position: fixed;
     position: absolute;
     margin-top: 20px;
     margin-left: 15px;
@@ -14,7 +15,7 @@
 }
 
 .form {
-    position: fixed;
+    position: relative;
     width: 250px;
 }
 
@@ -30,7 +31,6 @@
     padding-top: 100px; 
 } 
 .btn-circle.btn-sm {
-    position: fixed; 
     width: 30px; 
     height: 30px; 
     padding: 6px 0px; 
@@ -39,7 +39,6 @@
     text-align: center; 
 } 
 .btn-circle.btn-md { 
-    position: fixed;
     width: 50px; 
     height: 50px; 
     padding: 7px 10px; 
@@ -48,7 +47,6 @@
     text-align: center; 
 } 
 .btn-circle.btn-xl {
-    position: fixed; 
     width: 70px; 
     height: 70px; 
     padding: 10px 16px; 
@@ -57,7 +55,6 @@
     text-align: center; 
 } 
 .btn-circle {
-    position: absolute;
     margin: 3px;
 }
 
