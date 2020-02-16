@@ -61,7 +61,7 @@ function printPath(text, flr) {
 	document.getElementById("spinner").style.visibility = "hidden";
 }
 
-function getNearRoom(x, y, floor) {
+function getNearRoom(x, y) {
 	document.getElementById("spinner").style.visibility = "visible";
 	var xhttp;
 	xhttp = new XMLHttpRequest();
@@ -70,7 +70,7 @@ function getNearRoom(x, y, floor) {
 			var data = this.responseText.split(' ');
 			setMarker(data[2]);
 		}
-	};	
+	};
 	xhttp.open("GET", "php/nearRoom.php?x=" + encodeURIComponent(x) + "&y=" + encodeURIComponent(y) + "&floor=" + encodeURIComponent(floor), true);
 	xhttp.send();
 }
@@ -102,7 +102,13 @@ function setFloorByRoom(name, x, y) {
 		if (this.readyState == 4 && this.status == 200) {
 			setFloor(this.responseText);
 			marker[floor].move(x, y);
-			document.getElementById("spinner").style.visibility = "hidden";
+			if (floor % 2 == 0) {
+				simple.style.display = "block"
+				antresol.style.display = "none"
+			} else {
+				simple.style.display = "none"
+				antresol.style.display = "block"
+			}
 		}
 	};	
 	xhttp.open("GET", "php/getFloor.php?name="+name, true);
@@ -119,4 +125,5 @@ function setFloor(x) {
 	marker[x].style.display = "block";
 	document.getElementById('btn' + x).style.border = "solid #000 2px";
 	floor = x;
+	document.getElementById("spinner").style.visibility = "hidden";
 }

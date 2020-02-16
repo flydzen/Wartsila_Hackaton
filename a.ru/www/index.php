@@ -33,12 +33,13 @@
               pt[i] = svg[i].createSVGPoint();
               if (i != 0) {
                   svg[i].style.display = "none";
+              } else {
+                document.getElementById('drawing').addEventListener('click', event => {
+                    var loc = cursorPoint(event);
+                    getNearRoom(Math.round(loc.x), Math.round(loc.y));
+                },false);
               }
               marker[i] = draw[i].image('img/marker.svg').size(25,25).move(-10000, -10000);
-              document.getElementById('drawing').addEventListener('click', event => {
-                  var loc = cursorPoint(event);
-                  getNearRoom(Math.round(loc.x), Math.round(loc.y), i);
-              },false);
               function addOnWheel(elem, handler) {
                 if (elem.addEventListener) {
                   if ('onwheel' in document) {
@@ -78,6 +79,11 @@
       readFile(i);
     }
     </script>
+    <div class="room">
+      <svg id="showRoom" style="transform: scale(2.5);">
+        
+      </svg>
+    </div>
     <div class="main">
         <div class="search">
             <form class="form">
@@ -138,7 +144,25 @@
   window.onresize = function(){
       document.body.style.zoom = document.documentElement.clientWidth / size[0];
   }
-  
+  var room = SVG("#showRoom");
+  var simple;
+  var antresol;
+  $.ajax({
+    url: 'img/106.svg',
+    success: function(data) {
+      room.svg(new XMLSerializer().serializeToString(data.documentElement));
+      simple = document.getElementById('rooma');
+      simple.style.display = "none";
+    }
+  });
+  $.ajax({
+    url: 'img/106_antresol.svg',
+    success: function(data) {
+      room.svg(new XMLSerializer().serializeToString(data.documentElement));
+      antresol = document.getElementById('roomb');
+      antresol.style.display = "none";
+    }
+  });
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
