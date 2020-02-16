@@ -26,11 +26,7 @@ function search() {
 	setMarker(a);
 }
 
-
-function getPath() {
-	document.getElementById("spinner").style.visibility = "visible";
-	var from = document.getElementById("roomNumFrom").value.split(' ').join('_');
-	var to = document.getElementById("roomNumTo").value.split(' ').join('_');
+function baseGetPath(from, to){
 	var rad=document.getElementsByName("typeMove");
 	var choosen = 0;
     for (var i=0;i<rad.length; i++) {
@@ -42,7 +38,9 @@ function getPath() {
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var temp = this.responseText.split(",@");
+			var lr = this.responseText.split("$");
+			var right = lr[1];
+			var temp = lr[0].split(",@");
 			var lvls = temp[0].split(",");
 			var ways = temp[1].split("|");
 			var xyStart = ways[0].split(' ')[0].split(',');
@@ -65,6 +63,14 @@ function getPath() {
 	xhttp.send();
 }
 
+
+function getPath() {
+	document.getElementById("spinner").style.visibility = "visible";
+	var from = document.getElementById("roomNumFrom").value.split(' ').join('_');
+	var to = document.getElementById("roomNumTo").value.split(' ').join('_');
+	baseGetPath(from, to);
+}
+
 function printPath(text, flr) {
 	try {
 		path[flr].stroke({color: "#ffffff00"});
@@ -73,6 +79,14 @@ function printPath(text, flr) {
 	path[flr] = draw[flr].polyline(text).fill('none');
 	path[flr].stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
 	document.getElementById("spinner").style.visibility = "hidden";
+}
+
+
+function moveToEvent(name){
+	lastEvent = name;
+	var from = document.getElementById("roomNum").value.split(' ').join('_');
+	var to = name;
+	baseGetPath(from, to);
 }
 
 function getNearRoom(x, y) {
@@ -121,9 +135,19 @@ function addEvent() {
 	xhttp.open("GET", "php/addToList.php?name=" + encodeURIComponent(name), true);
 	xhttp.send();
 }
-
 function deleteEvent() {
-	var id = document.getElementById("roomNum").value;
+	var id = -1;
+	var els = document.getElementsByClassName("event");
+	for (var i = 0; i < els.length; i++) {
+		if (els[i].name == lastEvent){
+			id = els[i].value;
+			break;
+		}
+	}
+	console.log(id);
+	if (id == -1) {
+		return;
+	}
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -136,10 +160,9 @@ function deleteEvent() {
 		  });
 		}
 	};
-	xhttp.open("GET", "php/removeEvents.php?id=" + encodeURIComponent(id), true);
+	xhttp.open("GET", "php/deleteEvents.php?id=" + encodeURIComponent(id), true);
 	xhttp.send();
 }
-
 function cursorPoint(evt){
 	pt[floor].x = evt.clientX; pt[floor].y = evt.clientY;
 	return pt[floor].matrixTransform(svg[floor].getScreenCTM().inverse());
