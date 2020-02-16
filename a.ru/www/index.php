@@ -63,9 +63,7 @@
           }
       });
       svgBase = document.getElementById('drawing');
-      svgBase.onmousedown = function(e) {
-        svgBase.transform='translate('+e.x + ', ' + e.y +')'
-      }
+      makeDraggable(svgBase);
     }
     var startCircle;
     var endCircle;

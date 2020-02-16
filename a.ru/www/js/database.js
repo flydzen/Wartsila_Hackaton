@@ -18,6 +18,30 @@ function search() {
 	setMarker(a);
 }
 
+function makeDraggable(evt) {
+	var svg = evt.target;
+	svg.addEventListener('mousedown', startDrag);
+	svg.addEventListener('mousemove', drag);
+	svg.addEventListener('mouseup', endDrag);
+	svg.addEventListener('mouseleave', endDrag);
+	var selectedElement = false;
+	function startDrag(evt) {
+		if (evt.target.classList.contains('draggable')) {
+		  	selectedElement = evt.target;
+		}
+	}
+	function drag(evt) {
+		if (selectedElement) {
+			evt.preventDefault();
+			var x = parseFloat(selectedElement.getAttributeNS(null, "x"));
+			selectedElement.transform="transplate(0, " + (x + 0.1) +")";
+		}
+	}
+	  	function endDrag(evt) {
+			selectedElement = null;
+	  	}
+  	}
+
 function getPath() {
 	document.getElementById("spinner").style.visibility = "visible";
 	var from = document.getElementById("roomNumFrom").value.split(' ').join('_');
