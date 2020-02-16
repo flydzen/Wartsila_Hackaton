@@ -28,7 +28,7 @@
             var img = SVG('#drawing').size(width, height);
             img.svg(new XMLSerializer().serializeToString(data.documentElement));
             draw = SVG("#floor1"); 
-            marker = draw.circle(20).move(-10000, -10000);
+            marker = draw.image('img/marker.svg').size(25,25).move(-10000, -10000);
             var drawingSVG = document.getElementById('drawing');
             drawingSVG.addEventListener('click', event => {
                 var e = document.getElementById('Layer_2');
