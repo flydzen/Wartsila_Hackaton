@@ -5,8 +5,7 @@ function setMarker(name) {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var arr = this.responseText.split(' ');
-			marker[floor].move(+arr[0], +arr[1]-10);
-			document.getElementById("spinner").style.visibility = "hidden";
+			setFloorByRoom(name, +arr[0], +arr[1]-10);
 		}
 	};
 	xhttp.open("GET", "php/getCoords.php?room=" + encodeURIComponent(name), true);
@@ -75,14 +74,15 @@ function getNearRoom(x, y, floor) {
 	xhttp.send();
 }
 
-function getPeoples(name, lastName) {
+function getPeople() {
+	name = document.getElementById('peopleName').value.split(' ')[0];
+	lastName = document.getElementById('peopleName').value.split(' ')[1];
 	document.getElementById("spinner").style.visibility = "visible";
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var data = this.responseText.split(' ');
-			setMarker(data[2]);
+			setMarker(this.responseText);
 		}
 	};	
 	xhttp.open("GET", "php/getRoomByPeople.php?name=" + encodeURIComponent(name) + "&lastName=" + encodeURIComponent(lastName), true);
@@ -92,6 +92,20 @@ function getPeoples(name, lastName) {
 function cursorPoint(evt){
 	pt[floor].x = evt.clientX; pt[floor].y = evt.clientY;
 	return pt[floor].matrixTransform(svg[floor].getScreenCTM().inverse());
+}
+
+function setFloorByRoom(name, x, y) {
+	var xhttp;
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			setFloor(this.responseText);
+			marker[floor].move(x, y);
+			document.getElementById("spinner").style.visibility = "hidden";
+		}
+	};	
+	xhttp.open("GET", "php/getFloor.php?name="+name, true);
+	xhttp.send();
 }
 
 function setFloor(x) {

@@ -31,7 +31,9 @@
               draw[i] = SVG("#floor"+(i+1)); 
               svg[i] = document.getElementById('floor' + (i + 1));
               pt[i] = svg[i].createSVGPoint();
-              svg[i].style.display = "none";
+              if (i != 0) {
+                  svg[i].style.display = "none";
+              }
               marker[i] = draw[i].image('img/marker.svg').size(25,25).move(-10000, -10000);
               document.getElementById('drawing').addEventListener('click', event => {
                   var loc = cursorPoint(event);
@@ -57,7 +59,6 @@
                   drawing.style.transform = drawing.style.WebkitTransform = drawing.style.MsTransform = 'scale(' + scale + ')';
                   e.preventDefault();
               });
-              svg[0].style.display = "block";
           }
       });
     }
@@ -112,7 +113,7 @@
             <label for="wayToRoom">Search people</label>
             <div class="container">
                 <div class="row-fluid">
-                  <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPeople()" id="roomNumFrom">
+                  <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPeople()" id="peopleName">
                     <? require('php/getPeoples.php') ?>
                   </select>
                 </div>
