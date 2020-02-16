@@ -57,9 +57,9 @@
 			$len = sqrt(($x[$s] - $x[$e]) * ($x[$s] - $x[$e]) + ($y[$s] - $y[$e]) * ($y[$s] - $y[$e]));
 			if ($z[$s] != $z[$e]) {
 				if ($_GET['type'] == 0) {
-					$len += 100;
+					$len += 1000;
 				} else {
-					$len += 100;
+					$len += 1000;
 					if ($_GET['type'] != $type[$v][$j]) {
 						$len += 1000000;
 					}
