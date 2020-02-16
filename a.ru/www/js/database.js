@@ -23,18 +23,28 @@ function getPath() {
 	document.getElementById("spinner").style.visibility = "visible";
 	var from = document.getElementById("roomNumFrom").value.split(' ').join('_');
 	var to = document.getElementById("roomNumTo").value.split(' ').join('_');
-	
+
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var temp = this.responseText.split(",@");
-			alert(temp);
 			var lvls = temp[0].split(",");
 			var ways = temp[1].split("|");
+			var xyStart = ways[0].split(' ')[0].split(',');
+			var temp2 = ways[ways.length-1].split(' ');  // пути на последнем этаже
+			var xyEnd = temp2[temp2.length-1].split(',');
+			try {
+				startCircle.fill("#ffffff00");
+				endCircle.fill("#ffffff00");
+				startCircle.clear();
+				endCircle.clear();
+			} catch (Exception) {}
 			for (var i = 0; i < lvls.length; i++) {
 				printPath(ways[i], lvls[i]);
 			}
+			startCircle = draw[lvls[0]].circle(30).move(+xyStart[0] - 15, +xyStart[1] - 15);
+			endCircle = draw[lvls[lvls.length-1]].circle(30).move(+xyEnd[0] - 15, +xyEnd[1] - 15);	
 		}
 	};	
 	xhttp.open("GET", "php/findPath.php?start=" + encodeURIComponent(from) + "&end=" + encodeURIComponent(to), true);
@@ -42,7 +52,6 @@ function getPath() {
 }
 
 function printPath(text, flr) {
-	alert(text + " " + flr);
 	try {
 		path[flr].stroke({color: "#ffffff00"});
 		path[flr].clear();
