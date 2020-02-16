@@ -51,7 +51,6 @@
                 }
               }
               var scale = 1;
-
               addOnWheel(drawing, function(e) {
                   var delta = e.deltaY || e.detail || e.wheelDelta;
                   if (delta < 0) scale += 0.05;
@@ -61,8 +60,6 @@
               });
           }
       });
-      svgBase = document.getElementById('drawing');
-      makeDraggable(svgBase);
     }
     var startCircle;
     var endCircle;
@@ -77,7 +74,7 @@
     var img = SVG('#drawing').size(width, height);
     var drawing = document.getElementById('drawing');
     var t = [];
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 3; i++) {
       readFile(i);
     }
     </script>
