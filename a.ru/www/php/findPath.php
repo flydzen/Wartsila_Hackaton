@@ -101,5 +101,5 @@
 			echo " ";
 		}
 	}
-	echo "$".round($dist);
+	echo "$".(round($dist) % 1000000);
 ?>
