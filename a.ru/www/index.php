@@ -75,7 +75,7 @@
     var img = SVG('#drawing').size(width, height);
     var drawing = document.getElementById('drawing');
     var t = [];
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 4; i++) {
       readFile(i);
     }
     </script>
