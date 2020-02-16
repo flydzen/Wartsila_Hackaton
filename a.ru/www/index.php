@@ -1,4 +1,5 @@
 <?php
+    error_reporting(E_ERROR | E_PARSE);
     header('Content-type: text/html; charset=utf-8');
     $mysqli = new mysqli("localhost", "root", "", "nav");
 ?>
@@ -81,74 +82,83 @@
     </script>
     <div class="room">
       <label id="numberRoom"></label>
-      <svg id="showRoom" style="transform: scale(2.5);">
+        <svg id="showRoom" style="transform: scale(2.5);">
       </svg>
     </div>
     <div class="main">
-        <div class="search">
-            <form class="form">
-            <label for="wayToRoom">Find place</label>
-              <div class="container">
-                <div class="row-fluid">
-                  <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="search()" id="roomNum">
-                    <? require('php/getNames.php') ?>
-                  </select>
-                </div>
-              </div>
-          </form>
-
+      <div class="search">
+        <form class="form">
+          <label for="wayToRoom">Find place</label>
+          <div class="container">
+            <div class="row-fluid">
+              <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="search()" id="roomNum">
+                <? include('php/getNames.php') ?>
+              </select>
+            </div>
+            <button type="button" class="btn btn-success container" onclick="addEvent()">Добавить в список встреч</button>
+          </div>
+        </form>
         <form class="form formPath">
           <label for="wayToRoom">Way to room</label>
-            <div class="container">
-              <div class="row-fluid">
-                <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPath()" id="roomNumFrom">
-                  <? require('php/getNames.php') ?>
-                </select>
-              </div>
+          <div class="container">
+            <div class="row-fluid">
+              <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPath()" id="roomNumFrom">
+                <? include('php/getNames.php') ?>
+              </select>
             </div>
-            <div class="container">
-              <div class="row-fluid">
-                <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPath()" id="roomNumTo">
-                  <? require('php/getNames.php') ?>
-                </select>
-              </div>
-            </div>            <div class="container">
-              <div class="row-fluid">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary active">
-              <input type="radio" name="typeMove" id="Any" autocomplete="off" checked> Any
-            </label>
-            <label class="btn btn-secondary">
-              <input type="radio" name="typeMove" id="Elevator" autocomplete="off"> Elevators
-            </label>
-            <label class="btn btn-secondary">
-              <input type="radio" name="typeMove" id="Stairs" autocomplete="off"> Stairs  
-            </label>
           </div>
+          <div class="container">
+            <div class="row-fluid">
+              <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPath()" id="roomNumTo">
+                <? include('php/getNames.php') ?>
+              </select>
             </div>
-            </div>
-          </form>
-          <form class="form">
-            <label for="wayToRoom">Search people</label>
-            <div class="container">
-                <div class="row-fluid">
-                  <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPeople()" id="peopleName">
-                    <? require('php/getPeoples.php') ?>
-                  </select>
-                </div>
+          </div>            <div class="container">
+            <div class="row-fluid">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                  <input type="radio" name="typeMove" id="Any" autocomplete="off" checked> Any
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="typeMove" id="Elevator" autocomplete="off"> Elevators
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="typeMove" id="Stairs" autocomplete="off"> Stairs  
+                </label>
               </div>
-          </form>
-    </div>
-        <div class="spinner-border text-primary" id="spinner" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-
-        <div class="floatingButtons">
-            <div><button id="btn3" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(3)">4</button> </div>
-            <div><button id="btn2" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(2)">3</button> </div>
-            <div><button id="btn1" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(1)">2</button> </div>
-            <div><button id="btn0" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(0)">1</button> </div>
-        </div>
+            </div>
+          </div>
+        </form>
+        <form class="form">
+          <label for="wayToRoom">Search people</label>
+            <div class="container">
+              <div class="row-fluid">
+                <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPeople()" id="peopleName">
+                  <? include('php/getPeoples.php') ?>
+                </select>
+              </div>
+            </div>
+        </form>
+        <form class="form">
+          <div class='countainer'>
+            <div class="list-group">
+              <div class="list-group-item list-group-item-action active">
+                Список встреч
+              </div>
+              <? include("php/printEvents.php") ?>
+            </div><button type="button" class="btn btn-danger" >Удалить встречу</button>
+          </div>
+        </form>
+      </div>
+      <div class="spinner-border text-primary" id="spinner" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+      <div class="floatingButtons">
+          <div><button id="btn3" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(3)">4</button> </div>
+          <div><button id="btn2" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(2)">3</button> </div>
+          <div><button id="btn1" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(1)">2</button> </div>
+          <div><button id="btn0" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(0)">1</button> </div>
+      </div>
     </div>
     </body>
 </html>

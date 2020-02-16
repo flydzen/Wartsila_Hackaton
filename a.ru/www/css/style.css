@@ -28,6 +28,8 @@
 .form {
     position: relative;
     width: 250px;
+    padding-top: 10px !important;
+    padding-bottom: 10px;
 }
 
 #spinner {
@@ -92,6 +94,11 @@
 .container {
     width: auto !important;
 }
+
+.list-group {
+    padding-bottom: 0px !important;
+}
+
 #numberRoom {
     align: center;
     margin-left: 110px;
