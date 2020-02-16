@@ -31,7 +31,7 @@ function getPath() {
 				path[floor].stroke({color: "#ffffff00"});
 				path[floor].clear();
 			} catch (Exception) {}
-			path[floor] = draw.polyline(this.responseText).fill('none');
+			path[floor] = draw[floor].polyline(this.responseText).fill('none');
 			path[floor].stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
 			document.getElementById("spinner").style.visibility = "hidden";
 		}
