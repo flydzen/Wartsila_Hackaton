@@ -68,10 +68,19 @@
 		$end = $last[$end];
 	}
 	$lastZ = $ansZ[count($ansZ) - 1];
+	echo $lastZ.",";
+	for ($i = count($ansX) - 1; $i >= 0; $i--) {
+		if ($ansZ[$i] != $lastZ) {
+			echo $ansZ[$i].",";
+		} 
+		$lastZ = $ansZ[$i];
+	}
+	echo "@";
 	for ($i = count($ansX) - 1; $i >= 0; $i--) {
 		if ($ansZ[$i] != $lastZ) {
 			echo "|";
 		} 
+		$lastZ = $ansZ[$i];
 		echo $ansX[$i].",".$ansY[$i];
 		if ($i != 0) {
 			echo " ";
