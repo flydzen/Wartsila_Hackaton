@@ -14,6 +14,7 @@ function setMarker(name) {
 			}
 			var arr = this.responseText.split(' ');
 			setFloorByRoom(name, +arr[0], +arr[1]-10);
+			setWorkersList(name);
 		}
 	};
 	xhttp.open("GET", "php/getCoords.php?room=" + encodeURIComponent(name), true);
@@ -86,6 +87,18 @@ function getNearRoom(x, y) {
 		}
 	};
 	xhttp.open("GET", "php/nearRoom.php?x=" + encodeURIComponent(x) + "&y=" + encodeURIComponent(y) + "&floor=" + encodeURIComponent(floor), true);
+	xhttp.send();
+}
+
+function setWorkersList(name) {
+	var xhttp;
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			alert(this.responseText.split);
+		}
+	};
+	xhttp.open("GET", "php/printWorkers.php?room=" + encodeURIComponent(name), true);
 	xhttp.send();
 }
 
