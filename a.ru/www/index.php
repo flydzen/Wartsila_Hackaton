@@ -61,7 +61,8 @@
           }
       });
     }
-    
+    var startCircle;
+    var endCircle;
     var svg = [];
     var marker = [];
     var draw = [];
