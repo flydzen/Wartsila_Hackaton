@@ -1,4 +1,10 @@
-.drawing {
+#drawing {
+    position: absolute;
+}
+.floor1 {
+    position: absolute;
+}
+.floor2 {
     position: absolute;
 }
 .caret {

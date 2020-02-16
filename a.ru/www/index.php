@@ -21,48 +21,61 @@
     <title>Oblepiha</title>
   </head>
   <body>
-    <svg id='drawing0' class="drawing"></svg>
-    <svg id='drawing1' class="drawing"></svg>
-    <svg id='drawing2' class="drawing"></svg>
-    <svg id='drawing3' class="drawing"></svg>
+    <svg id="drawing"></svg>
     <script type="text/javascript">
+    function readFile(i) {
+      $.ajax({
+          url: 'img/floor' + (i+1) + '.svg',
+          success: function(data) {
+              img.svg(new XMLSerializer().serializeToString(data.documentElement));
+              draw[i] = SVG("#floor"+(i+1)); 
+              svg[i] = document.getElementById('floor' + (i + 1));
+              pt[i] = svg[i].createSVGPoint();
+              svg[i].style.display = "none";
+              marker[i] = draw[i].image('img/marker.svg').size(25,25).move(-10000, -10000);
+              document.getElementById('drawing').addEventListener('click', event => {
+                  var loc = cursorPoint(event);
+                  getNearRoom(Math.round(loc.x), Math.round(loc.y), i);
+              },false);
+              function addOnWheel(elem, handler) {
+                if (elem.addEventListener) {
+                  if ('onwheel' in document) {
+                    elem.addEventListener("wheel", handler);
+                  } else if ('onmousewheel' in document) {
+                    elem.addEventListener("mousewheel", handler);
+                  } else {
+                    elem.addEventListener("MozMousePixelScroll", handler);
+                  }
+                }
+              }
+              var scale = 1;
+
+              addOnWheel(drawing, function(e) {
+                  var delta = e.deltaY || e.detail || e.wheelDelta;
+                  if (delta < 0) scale += 0.05;
+                  else scale -= 0.05;
+                  drawing.style.transform = drawing.style.WebkitTransform = drawing.style.MsTransform = 'scale(' + scale + ')';
+                  e.preventDefault();
+              });
+              svg[0].style.display = "block";
+          }
+      });
+    }
+    
     var svg = [];
     var marker = [];
     var draw = [];
     var path = [];
     var pt = [];
-    var drawing = [];
     var floor = 0;
-    var floors = [];
     var width = window.innerWidth;
     var height = window.innerHeight;
-    $.ajax({
-        url: 'img/floor1.svg',
-        success: function(data) {
-            var img = SVG('#drawing'+floor).size(width, height);
-            img.svg(new XMLSerializer().serializeToString(data.documentElement));
-            draw[floor] = SVG("#floor1"); 
-            marker = draw[floor].image('img/marker.svg').size(25,25).move(-10000, -10000);            
-            svg[floor] = document.getElementById('floor' + (floor + 1));
-            drawing[floor] = document.getElementById('drawing' + floor);
-            pt[floor] = svg[floor].createSVGPoint();
-            document.getElementById('drawing' + floor).addEventListener('click', event => {
-                var loc = cursorPoint(event);
-                getNearRoom(Math.round(loc.x), Math.round(loc.y), 0);
-            },false);
-            function addOnWheel(elem, handler) {
-              if (elem.addEventListener) {
-                if ('onwheel' in document) {
-                  elem.addEventListener("wheel", handler);
-                } else if ('onmousewheel' in document) {
-                  elem.addEventListener("mousewheel", handler);
-                } else {
-                  elem.addEventListener("MozMousePixelScroll", handler);
-                }
-              }
-            }
-        }
-    });
+    var img = SVG('#drawing').size(width, height);
+    var drawing = document.getElementById('drawing');
+    var t = [];
+    for (var i = 0; i < 2; i++) {
+      readFile(i);
+    }
     </script>
     <div class="main">
         <div class="search">

@@ -5,7 +5,7 @@ function setMarker(name) {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var arr = this.responseText.split(' ');
-			marker.move(+arr[0], +arr[1]-10);
+			marker[floor].move(+arr[0], +arr[1]-10);
 			document.getElementById("spinner").style.visibility = "hidden";
 		}
 	};
@@ -56,5 +56,15 @@ function getNearRoom(x, y, floor) {
 
 function cursorPoint(evt){
 	pt[floor].x = evt.clientX; pt[floor].y = evt.clientY;
-	return pt.matrixTransform(svg[floor].getScreenCTM().inverse());
+	return pt[floor].matrixTransform(svg[floor].getScreenCTM().inverse());
+}
+
+function setFloor(x) {
+	for (var i = 0; i < svg.length; i++) {
+		svg[i].style.display = "none";
+		marker[i].style.display = "none";
+	}
+	svg[x].style.display = "block";
+	marker[x].style.display = "block";
+	floor = x;
 }
