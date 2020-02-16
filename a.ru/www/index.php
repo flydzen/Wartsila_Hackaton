@@ -108,6 +108,16 @@
                 </div>
               </div>
           </form>
+          <form class="form">
+            <label for="wayToRoom">Search people</label>
+            <div class="container">
+                <div class="row-fluid">
+                  <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPeople()" id="roomNumFrom">
+                    <? require('php/getPeoples.php') ?>
+                  </select>
+                </div>
+              </div>
+          </form>
     </div>
         <div class="spinner-border text-primary" id="spinner" role="status">
             <span class="sr-only">Loading...</span>

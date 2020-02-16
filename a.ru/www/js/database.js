@@ -66,6 +66,20 @@ function getNearRoom(x, y, floor) {
 	xhttp.send();
 }
 
+function getPeoples(name, lastName) {
+	document.getElementById("spinner").style.visibility = "visible";
+	var xhttp;
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var data = this.responseText.split(' ');
+			setMarker(data[2]);
+		}
+	};	
+	xhttp.open("GET", "php/getRoomByPeople.php?name=" + encodeURIComponent(name) + "&lastName=" + encodeURIComponent(lastName), true);
+	xhttp.send();
+}
+
 function cursorPoint(evt){
 	pt[floor].x = evt.clientX; pt[floor].y = evt.clientY;
 	return pt[floor].matrixTransform(svg[floor].getScreenCTM().inverse());
