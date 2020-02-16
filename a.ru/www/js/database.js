@@ -122,6 +122,24 @@ function addEvent() {
 	xhttp.send();
 }
 
+function deleteEvent() {
+	var id = document.getElementById("roomNum").value;
+	var xhttp;
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			$.ajax({
+		    url: 'php/printEvents.php',
+		    success: function(data){
+		      $('#events').html(data);
+		    }
+		  });
+		}
+	};
+	xhttp.open("GET", "php/removeEvents.php?id=" + encodeURIComponent(id), true);
+	xhttp.send();
+}
+
 function cursorPoint(evt){
 	pt[floor].x = evt.clientX; pt[floor].y = evt.clientY;
 	return pt[floor].matrixTransform(svg[floor].getScreenCTM().inverse());
