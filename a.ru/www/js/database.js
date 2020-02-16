@@ -46,7 +46,7 @@ function getPath() {
 			var lvls = temp[0].split(",");
 			var ways = temp[1].split("|");
 			var xyStart = ways[0].split(' ')[0].split(',');
-			var temp2 = ways[ways.length-1].split(' ');  // пути на последнем этаже
+			var temp2 = ways[ways.length-1].split(' ');
 			var xyEnd = temp2[temp2.length-1].split(',');
 			try {
 				startCircle.fill("#ffffff00");
@@ -101,6 +101,18 @@ function getPeople() {
 		}
 	};
 	xhttp.open("GET", "php/getRoomByPeople.php?name=" + encodeURIComponent(name) + "&lastName=" + encodeURIComponent(lastName), true);
+	xhttp.send();
+}
+
+function addEvent(name) {
+	var xhttp;
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			setMarker(this.responseText);
+		}
+	};
+	xhttp.open("GET", "php/addToList.php?name=" + encodeURIComponent(name), true);
 	xhttp.send();
 }
 
