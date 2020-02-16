@@ -38,18 +38,38 @@
             img.svg(new XMLSerializer().serializeToString(data.documentElement));
             draw = SVG("#floor1"); 
             marker = draw.image('img/marker.svg').size(25,25).move(-10000, -10000);            
-            svg = document.getElementById('floor1');
+            svg = document.getElementById('drawing');
             pt = svg.createSVGPoint();
             document.getElementById('drawing').addEventListener('click', event => {
                 var loc = cursorPoint(event);
                 getNearRoom(Math.round(loc.x), Math.round(loc.y), 0);
-            },false);      
+            },false);
+            var size = [document.documentElement.clientWidth,document.documentElement.clientHeight];
+            window.onresize = function(){
+                document.body.style.zoom = document.documentElement.clientWidth / size[0];
+            }
+            function addOnWheel(elem, handler) {
+              if (elem.addEventListener) {
+                if ('onwheel' in document) {
+                  elem.addEventListener("wheel", handler);
+                } else if ('onmousewheel' in document) {
+                  elem.addEventListener("mousewheel", handler);
+                } else {
+                  elem.addEventListener("MozMousePixelScroll", handler);
+                }
+              }
+            }
+
+            var scale = 1;
+            addOnWheel(svg, function(e) {
+              var delta = e.deltaY || e.detail || e.wheelDelta;
+              if (delta > 0) scale += 0.05;
+              else scale -= 0.05;
+              svg.style.transform = svg.style.WebkitTransform = svg.style.MsTransform = 'scale(' + scale + ')';
+              e.preventDefault();
+            });
         }
     });
-    var size = [document.documentElement.clientWidth,document.documentElement.clientHeight];
-    window.onresize = function(){
-        document.body.style.zoom = document.documentElement.clientWidth / size[0];
-    }
     </script>
     <div class="main">
       <div class="container">

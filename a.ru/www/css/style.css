@@ -30,7 +30,7 @@
     padding-top: 100px; 
 } 
 .btn-circle.btn-sm {
-position: fixed; 
+    position: fixed; 
     width: 30px; 
     height: 30px; 
     padding: 6px 0px; 
@@ -57,6 +57,7 @@ position: fixed;
     text-align: center; 
 } 
 .btn-circle {
+    position: absolute;
     margin: 3px;
 }
 
