@@ -112,8 +112,10 @@ function setFloor(x) {
 	for (var i = 0; i < svg.length; i++) {
 		svg[i].style.display = "none";
 		marker[i].style.display = "none";
+		document.getElementById('btn' + i).style.border = "none";
 	}
 	svg[x].style.display = "block";
 	marker[x].style.display = "block";
+	document.getElementById('btn' + x).style.border = "solid #000 2px";
 	floor = x;
 }

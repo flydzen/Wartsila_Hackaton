@@ -125,15 +125,16 @@
         </div>
 
         <div class="floatingButtons">
-            <div><button type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(3)">4</button> </div>
-            <div><button type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(2)">3</button> </div>
-            <div><button type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(1)">2</button> </div>
-            <div><button type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(0)">1</button> </div>
+            <div><button id="btn3" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(3)">4</button> </div>
+            <div><button id="btn2" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(2)">3</button> </div>
+            <div><button id="btn1" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(1)">2</button> </div>
+            <div><button id="btn0" type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(0)">1</button> </div>
         </div>
     </div>
     </body>
 </html>
 <script>
+  document.getElementById('btn0').style.border = "solid #000 2px";
   var size = [document.documentElement.clientWidth,document.documentElement.clientHeight];
   window.onresize = function(){
       document.body.style.zoom = document.documentElement.clientWidth / size[0];
