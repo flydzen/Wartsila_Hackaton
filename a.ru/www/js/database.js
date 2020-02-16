@@ -21,8 +21,8 @@ function search() {
 
 function getPath() {
 	document.getElementById("spinner").style.visibility = "visible";
-	var from = document.getElementById("roomNumFrom").value;
-	var to = document.getElementById("roomNumTo").value;
+	var from = document.getElementById("roomNumFrom").value.split(' ').join('_');
+	var to = document.getElementById("roomNumTo").value.split(' ').join('_');
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
