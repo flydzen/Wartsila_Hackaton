@@ -98,21 +98,35 @@
           </form>
 
         <form class="form formPath">
-            <label for="wayToRoom">Way to room</label>
+          <label for="wayToRoom">Way to room</label>
             <div class="container">
-                <div class="row-fluid">
-                  <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPath()" id="roomNumFrom">
-                    <? require('php/getNames.php') ?>
-                  </select>
-                </div>
+              <div class="row-fluid">
+                <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPath()" id="roomNumFrom">
+                  <? require('php/getNames.php') ?>
+                </select>
               </div>
+            </div>
             <div class="container">
-                <div class="row-fluid">
-                  <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPath()" id="roomNumTo">
-                    <? require('php/getNames.php') ?>
-                  </select>
-                </div>
+              <div class="row-fluid">
+                <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPath()" id="roomNumTo">
+                  <? require('php/getNames.php') ?>
+                </select>
               </div>
+            </div>            <div class="container">
+              <div class="row-fluid">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+              <input type="radio" name="typeMove" id="Any" autocomplete="off" checked> Any
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="typeMove" id="Elevator" autocomplete="off"> Elevators
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="typeMove" id="Stairs" autocomplete="off"> Stairs  
+            </label>
+          </div>
+            </div>
+            </div>
           </form>
           <form class="form">
             <label for="wayToRoom">Search people</label>

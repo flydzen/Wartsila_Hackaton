@@ -23,7 +23,13 @@ function getPath() {
 	document.getElementById("spinner").style.visibility = "visible";
 	var from = document.getElementById("roomNumFrom").value.split(' ').join('_');
 	var to = document.getElementById("roomNumTo").value.split(' ').join('_');
-
+	var rad=document.getElementsByName("typeMove");
+	var choosen = 0;
+    for (var i=0;i<rad.length; i++) {
+        if (rad[i].checked) {
+            choosen=i;
+        }
+    }
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -47,7 +53,7 @@ function getPath() {
 			endCircle = draw[lvls[lvls.length-1]].circle(30).move(+xyEnd[0] - 15, +xyEnd[1] - 15);	
 		}
 	};	
-	xhttp.open("GET", "php/findPath.php?start=" + encodeURIComponent(from) + "&end=" + encodeURIComponent(to), true);
+	xhttp.open("GET", "php/findPath.php?start=" + encodeURIComponent(from) + "&end=" + encodeURIComponent(to) + "&type=" + choosen, true);
 	xhttp.send();
 }
 

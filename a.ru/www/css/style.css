@@ -14,12 +14,8 @@
     position: fixed;
 }
 
-.static {
-    cursor: not-allowed;
-}
-
-.draggable {
-    cursor: move;
+.btn-group {
+    width: 100%;
 }
 
 .main {
