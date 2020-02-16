@@ -1,4 +1,5 @@
 <?php
+	header('Content-type: text/html; charset=utf-8');
 	$mysqli = new mysqli("localhost", "root", "", "nav");
 	$x = $_GET['x'];
 	$y = $_GET['y'];
