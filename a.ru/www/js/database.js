@@ -104,7 +104,8 @@ function getPeople() {
 	xhttp.send();
 }
 
-function addEvent(name) {
+function addEvent() {
+	var name = document.getElementById("roomNum").value;
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
