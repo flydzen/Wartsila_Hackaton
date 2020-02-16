@@ -28,11 +28,11 @@ function getPath() {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			try {
-				path.stroke({color: "#ffffff00"});
-				path.clear();
+				path[floor].stroke({color: "#ffffff00"});
+				path[floor].clear();
 			} catch (Exception) {}
-			path = draw.polyline(this.responseText).fill('none');
-			path.stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
+			path[floor] = draw.polyline(this.responseText).fill('none');
+			path[floor].stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
 			document.getElementById("spinner").style.visibility = "hidden";
 		}
 	};	
@@ -55,6 +55,6 @@ function getNearRoom(x, y, floor) {
 }
 
 function cursorPoint(evt){
-	pt.x = evt.clientX; pt.y = evt.clientY;
-	return pt.matrixTransform(svg.getScreenCTM().inverse());
+	pt[floor].x = evt.clientX; pt[floor].y = evt.clientY;
+	return pt.matrixTransform(svg[floor].getScreenCTM().inverse());
 }
