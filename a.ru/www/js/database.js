@@ -110,11 +110,10 @@ function addEvent() {
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			setMarker(this.responseText);
 			$.ajax({
-		    url: 'printEvents.php',
+		    url: 'php/printEvents.php',
 		    success: function(data){
-		      $('#example').html(data);
+		      $('#events').html(data);
 		    }
 		  });
 		}

@@ -145,7 +145,9 @@
               <div class="list-group-item list-group-item-action active">
                 Список встреч
               </div>
-              <? include("php/printEvents.php") ?>
+              <div id="events">
+                <? include("php/printEvents.php") ?>
+              </div>
             </div><button type="button" class="btn btn-danger" >Удалить встречу</button>
           </div>
         </form>
