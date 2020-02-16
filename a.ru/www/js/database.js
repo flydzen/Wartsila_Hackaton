@@ -4,6 +4,14 @@ function setMarker(name) {
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById('numberRoom').innerText = "Room: " + name;
+			if (floor % 2 == 0) {
+				simple.style.display = "block"
+				antresol.style.display = "none"
+			} else {
+				simple.style.display = "none"
+				antresol.style.display = "block"
+			}
 			var arr = this.responseText.split(' ');
 			setFloorByRoom(name, +arr[0], +arr[1]-10);
 		}
@@ -23,7 +31,6 @@ function getPath() {
 	document.getElementById("spinner").style.visibility = "visible";
 	var from = document.getElementById("roomNumFrom").value.split(' ').join('_');
 	var to = document.getElementById("roomNumTo").value.split(' ').join('_');
-
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -47,7 +54,7 @@ function getPath() {
 			endCircle = draw[lvls[lvls.length-1]].circle(30).move(+xyEnd[0] - 15, +xyEnd[1] - 15);	
 		}
 	};	
-	xhttp.open("GET", "php/findPath.php?start=" + encodeURIComponent(from) + "&end=" + encodeURIComponent(to), true);
+	xhttp.open("GET", "php/findPath.php?start=" + encodeURIComponent(from) + "&end=" + encodeURIComponent(to) + "&type=0", true);
 	xhttp.send();
 }
 
@@ -102,13 +109,6 @@ function setFloorByRoom(name, x, y) {
 		if (this.readyState == 4 && this.status == 200) {
 			setFloor(this.responseText);
 			marker[floor].move(x, y);
-			if (floor % 2 == 0) {
-				simple.style.display = "block"
-				antresol.style.display = "none"
-			} else {
-				simple.style.display = "none"
-				antresol.style.display = "block"
-			}
 		}
 	};	
 	xhttp.open("GET", "php/getFloor.php?name="+name, true);

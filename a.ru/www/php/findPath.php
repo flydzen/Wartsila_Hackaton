@@ -1,12 +1,15 @@
 <?php
 	header('Content-type: text/html; charset=utf-8');
 	$mysqli = new mysqli("localhost", "root", "", "nav");
-	$result = $mysqli->query("SELECT x, y FROM edges");
+	$result = $mysqli->query("SELECT x, y, type FROM edges");
 	$g = array();
 	$len = array();
+	$type = array();
 	while ($row = $result->fetch_assoc()) {
 	    $g[$row['x']][count($g[$row['x']])] = $row['y'];
 	    $g[$row['y']][count($g[$row['y']])] = $row['x'];
+	    $type[$row['y']][count($type[$row['y']])] = $row['type'];
+	    $type[$row['x']][count($type[$row['x']])] = $row['type'];
 	}
 	$start = $_GET['start'];
 	$result = $mysqli->query("SELECT id FROM rooms where name='".$start."'");
@@ -51,7 +54,17 @@
 		for ($j = 0; $j < count($g[$v]); $j++) {
 			$s = $v;
 			$e = $g[$v][$j];
-			$len = sqrt(($x[$s] - $x[$e]) * ($x[$s] - $x[$e]) + ($y[$s] - $y[$e]) * ($y[$s] - $y[$e]) + ($floor[$s] - $floor[$e]) * 100);
+			$len = sqrt(($x[$s] - $x[$e]) * ($x[$s] - $x[$e]) + ($y[$s] - $y[$e]) * ($y[$s] - $y[$e]));
+			if ($z[$s] != $z[$e]) {
+				if ($_GET['type'] == 0) {
+					$len += 100;
+				} else {
+					$len += 100;
+					if ($_GET['type'] != $type[$v][$j]) {
+						$len += 1000000;
+					}
+				}
+			}
 			if ($d[$e] > $d[$s] + $len) {
 				$d[$e] = $d[$s] + $len;
 				$last[$e] = $s;

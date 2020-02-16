@@ -88,10 +88,16 @@
 .room {
     width: 25%;
     height: 25%;
-    bottom: 0;
+    right: 0;
     position: absolute;
+    padding-bottom: 40px;
 }
 
 .container {
     width: auto !important;
+}
+#numberRoom {
+    align: center;
+    margin-left: 110px;
+    margin-bottom: 40px;
 }
