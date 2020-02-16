@@ -18,10 +18,12 @@
 	$end = $row['id'];
 	$x = array();
 	$y = array();
-	$result = $mysqli->query("SELECT id, x, y FROM rooms");
+	$z = array();
+	$result = $mysqli->query("SELECT id, x, y, floor FROM rooms");
 	while ($row = $result->fetch_assoc()) {
 	    $x[$row['id']] = $row['x'];
 	    $y[$row['id']] = $row['y'];
+	    $z[$row['id']] = $row['floor'];
 	}
 	$row = $result->fetch_assoc();
 	$d = array();
@@ -49,7 +51,7 @@
 		for ($j = 0; $j < count($g[$v]); $j++) {
 			$s = $v;
 			$e = $g[$v][$j];
-			$len = sqrt(($x[$s] - $x[$e]) * ($x[$s] - $x[$e]) + ($y[$s] - $y[$e]) * ($y[$s] - $y[$e]));
+			$len = sqrt(($x[$s] - $x[$e]) * ($x[$s] - $x[$e]) + ($y[$s] - $y[$e]) * ($y[$s] - $y[$e]) + ($floor[$s] - $floor[$e]) * 100);
 			if ($d[$e] > $d[$s] + $len) {
 				$d[$e] = $d[$s] + $len;
 				$last[$e] = $s;
@@ -58,12 +60,18 @@
 	}
 	$ansX = array();
 	$ansY = array();
+	$ansZ = array();
 	while ($end != -1) {
 		$ansX[count($ansX)] = $x[$end];
 		$ansY[count($ansY)] = $y[$end];
+		$ansZ[count($ansZ)] = $z[$end];
 		$end = $last[$end];
 	}
+	$lastZ = $ansZ[count($ansZ) - 1];
 	for ($i = count($ansX) - 1; $i >= 0; $i--) {
+		if ($ansZ[$i] != $lastZ) {
+			echo "|";
+		} 
 		echo $ansX[$i].",".$ansY[$i];
 		if ($i != 0) {
 			echo " ";
