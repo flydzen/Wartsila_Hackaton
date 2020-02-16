@@ -17,9 +17,11 @@
     <svg id='drawing'></svg>
     
     <script type="text/javascript">
+    var svg;
     var marker;
     var draw;
     var path;
+    var pt;
     $.ajax({
         url: 'img/floor1.svg',
         success: function(data) {
@@ -28,21 +30,13 @@
             var img = SVG('#drawing').size(width, height);
             img.svg(new XMLSerializer().serializeToString(data.documentElement));
             draw = SVG("#floor1"); 
-            marker = draw.image('img/marker.svg').size(25,25).move(-10000, -10000);
-            var drawingSVG = document.getElementById('drawing');
-            drawingSVG.addEventListener('click', event => {
-                var e = document.getElementById('Layer_2');
-                var dim = e.getBoundingClientRect();
-                if (dim.left <= event.clientX && event.clientX <= dim.right && dim.top <= event.clientY && event.clientY <= dim.bottom) {
-                    var x = event.clientX - dim.left;
-                    var y = event.clientY - dim.top;
-                    y *= (1191-400) / (dim.bottom - dim.top);
-                    x *= (842-500) / (dim.right - dim.left);
-                    x += 250;
-                    y += 225;
-                    getNearRoom(Math.round(x), Math.round(y), 0);
-                }
-            });        
+            marker = draw.image('img/marker.svg').size(25,25).move(-10000, -10000);            
+            svg = document.getElementById('floor1');
+            pt = svg.createSVGPoint();
+            document.getElementById('drawing').addEventListener('click', event => {
+                var loc = cursorPoint(event);
+                getNearRoom(Math.round(loc.x), Math.round(loc.y), 0);
+            },false);      
         }
     });
         </script>

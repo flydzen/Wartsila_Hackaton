@@ -5,7 +5,7 @@ function setMarker(name) {
 		if (this.readyState == 4 && this.status == 200) {
 			var arr = this.responseText.split(' ');
 			console.log(this.responseText);
-			marker.move(+arr[0], +arr[1]);
+			marker.move(+arr[0]+14, +arr[1]-18);
 			document.getElementById("spinner").style.visibility = "hidden";
 		}
 	};
@@ -53,3 +53,8 @@ function getNearRoom(x, y, floor) {
 	xhttp.open("GET", "php/nearRoom.php?x=" + encodeURIComponent(x) + "&y=" + encodeURIComponent(y) + "&floor=" + encodeURIComponent(floor), true);
 	xhttp.send();
 }
+
+function cursorPoint(evt){
+	pt.x = evt.clientX; pt.y = evt.clientY;
+	return pt.matrixTransform(svg.getScreenCTM().inverse());
+  }
