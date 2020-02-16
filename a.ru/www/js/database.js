@@ -4,11 +4,12 @@ function setMarker(name) {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var arr = this.responseText.split(' ');
+			console.log(this.responseText);
 			marker.move(+arr[0], +arr[1]);
 			document.getElementById("spinner").style.visibility = "hidden";
 		}
-	};	
-	xhttp.open("GET", "php/getCoords.php?room=" + name, true);
+	};
+	xhttp.open("GET", "php/getCoords.php?room=" + encodeURIComponent(name), true);
 	xhttp.send();
 }
 
@@ -35,7 +36,7 @@ function getPath() {
 			document.getElementById("spinner").style.visibility = "hidden";
 		}
 	};	
-	xhttp.open("GET", "php/findPath.php?start=" + from + "&end=" + to, true);
+	xhttp.open("GET", "php/findPath.php?start=" + encodeURIComponent(from) + "&end=" + encodeURIComponent(to), true);
 	xhttp.send();
 }
 
@@ -49,6 +50,6 @@ function getNearRoom(x, y, floor) {
 			setMarker(data[2]);
 		}
 	};	
-	xhttp.open("GET", "php/nearRoom.php?x=" + x + "&y=" + y + "&floor=" + floor, true);
+	xhttp.open("GET", "php/nearRoom.php?x=" + encodeURIComponent(x) + "&y=" + encodeURIComponent(y) + "&floor=" + encodeURIComponent(floor), true);
 	xhttp.send();
 }

@@ -1,4 +1,5 @@
 <?php
+	header('Content-type: text/html; charset=utf-8');
 	$mysqli = new mysqli("localhost", "root", "", "nav");
 	$result = $mysqli->query("SELECT x, y FROM edges");
 	$g = array();
@@ -8,11 +9,11 @@
 	    $g[$row['y']][count($g[$row['y']])] = $row['x'];
 	}
 	$start = $_GET['start'];
-	$result = $mysqli->query("SELECT id FROM rooms where name=".$start);
+	$result = $mysqli->query("SELECT id FROM rooms where name='".$start."'");
 	$row = $result->fetch_assoc();
 	$start = $row['id'];
 	$end = $_GET['end'];
-	$result = $mysqli->query("SELECT id FROM rooms where name=".$end);
+	$result = $mysqli->query("SELECT id FROM rooms where name='".$end."'");
 	$row = $result->fetch_assoc();
 	$end = $row['id'];
 	$x = array();
