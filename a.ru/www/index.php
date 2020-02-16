@@ -21,35 +21,35 @@
     <title>Oblepiha</title>
   </head>
   <body>
-    <svg id='drawing'></svg>
-    
+    <svg id='drawing0' class="drawing"></svg>
+    <svg id='drawing1' class="drawing"></svg>
+    <svg id='drawing2' class="drawing"></svg>
+    <svg id='drawing3' class="drawing"></svg>
     <script type="text/javascript">
-    var svg;
-    var marker;
-    var draw;
-    var path;
-    var pt;
-    var drawing;
+    var svg = [];
+    var marker = [];
+    var draw = [];
+    var path = [];
+    var pt = [];
+    var drawing = [];
+    var floor = 0;
+    var floors = [];
+    var width = window.innerWidth;
+    var height = window.innerHeight;
     $.ajax({
         url: 'img/floor1.svg',
         success: function(data) {
-            var width = window.innerWidth;
-            var height = window.innerHeight;
-            var img = SVG('#drawing').size(width, height);
+            var img = SVG('#drawing'+floor).size(width, height);
             img.svg(new XMLSerializer().serializeToString(data.documentElement));
-            draw = SVG("#floor1"); 
-            marker = draw.image('img/marker.svg').size(25,25).move(-10000, -10000);            
-            svg = document.getElementById('floor1');
-            drawing = document.getElementById('drawing');
-            pt = svg.createSVGPoint();
-            document.getElementById('drawing').addEventListener('click', event => {
+            draw[floor] = SVG("#floor1"); 
+            marker = draw[floor].image('img/marker.svg').size(25,25).move(-10000, -10000);            
+            svg[floor] = document.getElementById('floor' + (floor + 1));
+            drawing[floor] = document.getElementById('drawing' + floor);
+            pt[floor] = svg[floor].createSVGPoint();
+            document.getElementById('drawing' + floor).addEventListener('click', event => {
                 var loc = cursorPoint(event);
                 getNearRoom(Math.round(loc.x), Math.round(loc.y), 0);
             },false);
-            var size = [document.documentElement.clientWidth,document.documentElement.clientHeight];
-            window.onresize = function(){
-                document.body.style.zoom = document.documentElement.clientWidth / size[0];
-            }
             function addOnWheel(elem, handler) {
               if (elem.addEventListener) {
                 if ('onwheel' in document) {
@@ -61,21 +61,13 @@
                 }
               }
             }
-
-            var scale = 1;
-            addOnWheel(drawing, function(e) {
-              var delta = e.deltaY || e.detail || e.wheelDelta;
-              if (delta < 0) scale += 0.05;
-              else scale -= 0.05;
-              drawing.style.transform = drawing.style.WebkitTransform = drawing.style.MsTransform = 'scale(' + scale + ')';
-              e.preventDefault();
-            });
         }
     });
     </script>
     <div class="main">
         <div class="search">
             <form class="form">
+            <label for="wayToRoom">Find place</label>
               <div class="container">
                 <div class="row-fluid">
                   <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="search()" id="roomNum">
@@ -108,13 +100,21 @@
         </div>
 
         <div class="floatingButtons">
-            <div><button type="button" class="btn btn-success btn-circle btn-md floorbtn">3</button> </div>
-            <div><button type="button" class="btn btn-success btn-circle btn-md floorbtn">2</button> </div>
-            <div><button type="button" class="btn btn-success btn-circle btn-md floorbtn">1</button> </div>
+            <div><button type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(3)">4</button> </div>
+            <div><button type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(2)">3</button> </div>
+            <div><button type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(1)">2</button> </div>
+            <div><button type="button" class="btn btn-success btn-circle btn-md floorbtn" onClick="setFloor(0)">1</button> </div>
         </div>
     </div>
     </body>
 </html>
+<script>
+  var size = [document.documentElement.clientWidth,document.documentElement.clientHeight];
+  window.onresize = function(){
+      document.body.style.zoom = document.documentElement.clientWidth / size[0];
+  }
+  
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
