@@ -1,3 +1,8 @@
+<?php
+    header('Content-type: text/html; charset=utf-8');
+    $mysqli = new mysqli("localhost", "root", "", "nav");
+?>
+
 <!doctype html>
 <html lang="en">
   <head> 
@@ -11,6 +16,8 @@
     <script type="text/javascript" src="js/svg.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
     <title>Oblepiha</title>
   </head>
   <body>
@@ -39,20 +46,36 @@
             },false);      
         }
     });
-        </script>
-        
+    var size = [document.documentElement.clientWidth,document.documentElement.clientHeight];
+    window.onresize = function(){
+        document.body.style.zoom = document.documentElement.clientWidth / size[0];
+    }
+    </script>
     <div class="main">
-        <form class="form">
-          <label for="exampleInputEmail1">Room number</label>
-          <input type="text" class="form-control" id="roomNum">
-          <button type="button" class="btn btn-dark" onclick="search()">Dark</button>
-        </form>
+      <div class="container">
+        <div class="row-fluid">
+          <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="search()" id="roomNum">
+            <? require('php/getNames.php') ?>
+          </select>
+        </div>
+      </div>
 
         <form class="form formPath">
             <label for="wayToRoom">Way to room</label>
-            <input type="text" class="form-control" id="roomNumFrom">
-            <input type="text" class="form-control" id="roomNumTo">
-            <button type="button" class="btn btn-dark" onclick="getPath()">Dark</button>
+            <div class="container">
+                <div class="row-fluid">
+                  <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPath()" id="roomNumFrom">
+                    <? require('php/getNames.php') ?>
+                  </select>
+                </div>
+              </div>
+            <div class="container">
+                <div class="row-fluid">
+                  <select class="selectpicker" data-show-subtext="true" data-live-search="true" onchange="getPath()" id="roomNumTo">
+                    <? require('php/getNames.php') ?>
+                  </select>
+                </div>
+              </div>
           </form>
 
         <div class="spinner-border text-primary" id="spinner" role="status">
@@ -67,3 +90,6 @@
     </div>
     </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>

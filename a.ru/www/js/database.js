@@ -1,11 +1,11 @@
 function setMarker(name) {
+	name = name.split(' ').join('_');
 	var xhttp;
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var arr = this.responseText.split(' ');
-			console.log(this.responseText);
-			marker.move(+arr[0]+14, +arr[1]-18);
+			marker.move(+arr[0], +arr[1]-10);
 			document.getElementById("spinner").style.visibility = "hidden";
 		}
 	};
@@ -57,4 +57,4 @@ function getNearRoom(x, y, floor) {
 function cursorPoint(evt){
 	pt.x = evt.clientX; pt.y = evt.clientY;
 	return pt.matrixTransform(svg.getScreenCTM().inverse());
-  }
+}
